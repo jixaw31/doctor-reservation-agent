@@ -1,12 +1,33 @@
 # Doctor Reservation AI Agent
 
-## Building an Intelligent, Stateful Appointment Booking Agent with LLMs, RAG, Reranking, and Workflow Orchestration
+**Technologies**
+Large Language Models (LLMs)
+Retrieval-Augmented Generation (RAG)
+Hybrid Search
+Dense Vector Search
+Sparse / BM25 Retrieval
+Semantic Reranking
+Natural Language Processing (NLP)
+Structured Information Extraction
+Stateful AI Agents
+Human-in-the-Loop
+Workflow Orchestration
+
+**Stack**
+Python
+LangGraph
+LangChain
+Qdrant
+Llama.cpp inference engine.(local LLM, Embedding and Reranker)
+FastAPI
+PostgreSQL
+Redis
+Next.js
+WebSockets
 
 ---
 
 # 1. Project Overview
-
-Booking a doctor's appointment is deceptively complex.
 
 From a user's perspective, the interaction might look like:
 
