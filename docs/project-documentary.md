@@ -29,12 +29,6 @@ WebSockets
 
 # 1. Project Overview
 
-From a user's perspective, the interaction might look like:
-
-> «من دنبال دکتر مغز و اعصاب می‌گردم.»
-
-But this single sentence does not contain everything required to make an appointment.
-
 The system may still need to determine:
 
 * What type of doctor the patient needs
@@ -48,9 +42,7 @@ The system may still need to determine:
 
 The challenge becomes even greater when users communicate naturally, make spelling mistakes, provide information incrementally, or change the direction of the conversation.
 
-The goal of this project was therefore not to build a simple chatbot.
-
-It was to build a **stateful AI agent capable of managing an end-to-end appointment workflow through natural language.**
+The goal of this project was therefore to build a **stateful AI agent capable of managing an end-to-end appointment workflow through natural language.**
 
 The current implementation demonstrates doctor discovery and reservation, while the underlying architecture is designed so that additional healthcare-related workflows and capabilities can be added without fundamentally changing the system.
 
@@ -145,18 +137,6 @@ They simply communicate naturally, and the agent manages the workflow.
 
 # 3. From Chatbot to Agent
 
-A traditional chatbot primarily performs:
-
-```text
-User Message
-     ↓
-LLM
-     ↓
-Response
-```
-
-That architecture is insufficient for appointment booking.
-
 The reservation system instead behaves more like:
 
 ```text
@@ -193,17 +173,15 @@ It acts as the language and reasoning layer that coordinates a collection of det
 
 # 4. Stateful Requirement Collection
 
-One of the most important components is the appointment state.
+One of the most important components is the appointment requirements state.
 
 The system maintains structured requirements such as:
 
 ```python
 appointment_requirements = [
-    {"doctor": None},
-    {"date": None},
-    {"time": None},
-    {"address": None},
-    {"patient": None},
+    {"patiet_name": None},
+    {"city": None},
+    {"province": None},
     {"phone_number": None},
 ]
 ```
@@ -214,12 +192,9 @@ For example:
 
 ```text
 Initial State
-
-doctor       = None
-date         = None
-time         = None
-address      = None
-patient      = None
+province = None
+city = None
+patient_name = None
 phone_number = None
 ```
 
@@ -238,7 +213,7 @@ phone_number = "09380075497"
 After providing their city:
 
 ```text
-address      = "مشهد"
+city      = "مشهد"
 ```
 
 The agent can therefore determine what is known and what is missing at every point in the conversation.
@@ -251,8 +226,8 @@ This prevents the system from repeatedly asking questions that the patient has a
 
 Users rarely provide all required information in one message.
 
-A user might say:
-
+Human Messages from a conversation with this Agent:
+User starts with:
 > «یه متخصص مغز و اعصاب میخوام.»
 
 Then:
@@ -300,7 +275,7 @@ book_appointment
 
 This allows the system to route different types of messages into different parts of the workflow.
 
-For example:
+An example of how conversation goes with this Agent:
 
 ```text
 "سلام"
